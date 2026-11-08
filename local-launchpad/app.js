@@ -46,6 +46,31 @@
       const remove = document.createElement('button'); remove.className = 'row-action'; remove.textContent = 'Delete'; remove.setAttribute('aria-label', `Delete ${lead.name}`); remove.addEventListener('click', () => { if (confirm(`Delete ${lead.name} from this browser?`)) { leads = leads.filter(x => x.id !== lead.id); save(); } });
       actions.append(edit, remove); tr.append(business, opportunity, stage, follow, actions); return tr;
     }));
+    renderDraftOptions();
+  }
+  function renderDraftOptions() {
+    const select = $('draftLeadSelect');
+    const selected = select.value;
+    const eligible = leads.filter(x => x.opportunity && x.opportunity.trim());
+    select.replaceChildren(new Option('Choose from your pipeline…', ''), ...eligible.map(lead => new Option(lead.name, lead.id)));
+    if (eligible.some(x => x.id === selected)) select.value = selected;
+    updateDraft();
+  }
+  function updateDraft() {
+    const lead = leads.find(x => x.id === $('draftLeadSelect').value);
+    $('draftEmpty').hidden = Boolean(lead);
+    $('draftResults').hidden = !lead;
+    if (!lead) return;
+    const business = lead.name.trim();
+    const note = lead.opportunity.trim().replace(/[.!?]+$/, '');
+    const url = safeUrl(lead.url);
+    $('auditOutput').value = `Website refresh opportunity for ${business}\n\nWhat I noticed\n${lead.opportunity.trim()}\n\nA possible next step\nReview the page on a phone and make the key service information and contact option easy to find. This is a suggestion to verify during your own review, not a claim that the current site is failing.\n\nScope to explore\nA focused one-page refresh could clarify the main offer, improve mobile readability, and make the next action easier to spot.${url ? `\n\nPublic website reviewed: ${url}` : ''}`;
+    $('messageOutput').value = `Subject: A small website idea for ${business}\n\nHello ${business} team,\n\nI was looking at your public website and noticed that ${note.charAt(0).toLowerCase()}${note.slice(1)}.\n\nI’m building a small web design service focused on clear, mobile-friendly one-page sites. I had an idea for how this part of the experience could be made easier for visitors. If it would be useful, I can send you a short example—no pressure either way.\n\nWould you be open to taking a look? If this isn’t relevant, just let me know and I won’t follow up.\n\nThanks,\n[Your name]`;
+  }
+  async function copyDraft(elementId) {
+    const value = $(elementId).value;
+    try { await navigator.clipboard.writeText(value); toast('Draft copied. Review and personalize it before use.'); }
+    catch { $(elementId).focus(); $(elementId).select(); toast('Select and copy the draft, then review it before use.'); }
   }
   function openForm(lead) {
     $('leadForm').reset(); $('leadId').value = lead?.id || '';
@@ -61,6 +86,9 @@
   dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
   $('searchInput').addEventListener('input', render);
   $('filterStatus').addEventListener('change', render);
+  $('draftLeadSelect').addEventListener('change', updateDraft);
+  $('copyAuditBtn').addEventListener('click', () => copyDraft('auditOutput'));
+  $('copyMessageBtn').addEventListener('click', () => copyDraft('messageOutput'));
   $('leadForm').addEventListener('submit', event => {
     event.preventDefault();
     const id = $('leadId').value || (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`);
