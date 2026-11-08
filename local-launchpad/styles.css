@@ -7,4 +7,5 @@ body, body * { font-family: 'Playfair Display', Georgia, serif !important; color
 body { background: #f4eddf; color: #080808; }
 .brand-mark, .button-dark, .draft-studio { background-color: #172947 !important; }
 .report-card, .draft-card, .offer-card { background-color: #f8f2e6; }
+.button-dark, .button-dark span, .mock-label { color: #ffffff !important; }
 
