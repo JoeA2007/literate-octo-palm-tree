@@ -1,6 +1,6 @@
 # Local Launchpad
 
-A no-dependency starter for selling a focused local-business website refresh. It provides a simple prospect pipeline and a realistic service offer. It does not send messages, scrape businesses, claim guaranteed results, or require an AI API subscription.
+A no-dependency starter for selling a focused local-business website refresh. It provides a prospect pipeline and prepares a personalized mini-audit and first-message draft from your own research notes. It does not send messages, scrape businesses, claim guaranteed results, or require an AI API subscription.
 
 ## Run it
 
@@ -18,5 +18,9 @@ Offer a fixed-scope, mobile-friendly one-page website refresh to a local busines
 4. Review applicable outreach laws and platform rules, send only manually where appropriate, and honor opt-outs.
 5. Track responses and learn from them before increasing volume.
 
-The application has no network calls, AI generation, outreach automation, authentication, or cloud sync. Anyone with access to this browser profile can see its local data. Do not store sensitive personal information. Keep a separate CSV backup. Revenue is not guaranteed; finding buyers and delivering paid work still requires judgment and human effort.
+## Draft kit
+
+Save a prospect with a specific opportunity note, then choose it in **Personalized Draft Kit**. The app prepares an editable mini-audit and a suggested first message from the business name, website, and your note. Copy either draft and verify every detail before use. The writing is a fixed local template, not AI research; it does not visit the prospect's site, validate the observation, check local rules, or send anything.
+
+The application has no prospect scraping, external AI calls, automatic outreach, authentication, or cloud sync. Anyone with access to this browser profile can see its local data. Do not store sensitive personal information. Keep a separate CSV backup. Revenue is not guaranteed; finding buyers and delivering paid work still requires judgment and human effort.
 
